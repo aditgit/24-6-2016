@@ -1,0 +1,198 @@
+﻿@model SocialMediaDemo.Models.LoginViewModel
+@using Microsoft.Owin.Security
+@{  
+    Layout = "~/Views/Shared/_socialMediaLayout.cshtml";
+}
+<style>
+    .profile{
+    border: 3px solid #B7B7B7;
+    padding: 10px;
+    margin-top: 47px;
+    margin-left:29%;
+    width: 350px;
+    background-color: #F7F7F7;
+    height: 160px;
+}
+.profile p{margin: 0px 0px 10px 0px;}
+.head{margin-bottom: 10px;}
+.head a{float: right;}
+.profile img{width: 100px;float: left;margin: 0px 10px 10px 0px;}
+.proDetails{float: left;}
+</style>
+
+<div class="page-head">
+    <!-- BEGIN PAGE TITLE -->
+    <div class="page-title">
+        <h1>Social Media </h1>
+    </div>
+</div>
+
+<div class="row">
+      
+          <div class="portlet light">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="fa  fa-cogs font-green-sharp"></i>
+                        <span class="caption-subject font-green-sharp bold uppercase">Login</span>
+                        <span class="caption-helper">social media authentication....</span>
+                    </div>
+                    
+                </div>              
+
+                <div class="portlet-body">
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="col-md-12">
+                            @Html.ValidationSummary(true)  
+                             
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    
+                                        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" , @placeholder="UserName"})
+                                        @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+                                    
+                                </div>
+
+                                <div class="form-group">
+                                    
+                                        @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Password" })
+                                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                                    
+                                </div>
+
+                                <div class="form-group">
+                                    
+                                        <input type="submit" value="Log in" class="btn btn-success col-md-offset-3" />
+                                        
+                                </div>
+                            </div>
+
+                            <div class="col-md-offset-7">
+                                @{
+                                    var loginProviders = Context.GetOwinContext().Authentication.GetExternalAuthenticationTypes();
+
+                                    if (loginProviders.Count() == 0)
+                                    {
+                                        <div class="form-group">
+                                                <b>There are no social media authentication service configured.</b>
+                                        </div>
+
+                                    }
+                                    else
+                                    {
+                                        <div class="form-group">
+                                            
+                                              @foreach (AuthenticationDescription p in loginProviders)
+                                            {
+                                                <button type="submit" class="btn btn-block btn-social  btn-@p.AuthenticationType.ToLower()"
+                                                        id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType"
+                                                        title="Log in using your @p.Caption account">
+                                                    <span class="fa fa-@p.AuthenticationType.ToLower()"></span> Sign in with @p.AuthenticationType
+                                                </button>
+                                            }
+                                        </div>
+
+
+                                    }
+                                }
+                            </div>
+
+                            </div>
+                            <br/>
+                            <div class="form-group">
+                                @Html.Label("Login(using JS):", new { @class = "control-label col-md-2" })                                
+                                    <meta name="google-signin-client_id" content="481648268302-e51a2cputcrcuf1v1644nk9gurpmq8ot.apps.googleusercontent.com">
+                                    <div class="fb-login-button col-md-1" data-size="large" data-show-faces="false" data-auto-logout-link="true"></div>                                    
+                                        <div id="gSignIn" style="margin-left:28% ; height:25% "></div>    
+                                <!-- HTML for displaying user details -->                                 
+                                         <div class="userContent"></div>
+                                         <div id="fb-root"></div>
+                            </div>                            
+                       }
+                  </div>
+            </div>
+</div>
+
+<!-- script for likedin-->
+@*<script type="text/javascript" src="//platform.linkedin.com/in.js">
+    api_key: 75rrlg3r7t0e9y
+    authorize: true
+</script>
+<script type="in/Login">
+</script>*@
+
+<!-- script for Google Sign In-Out -->
+<script src="https://apis.google.com/js/client:platform.js?onload=renderButton" async defer></script>
+<script type="text/javascript">
+    function onSuccess(googleUser) {        
+        var profile = googleUser.getBasicProfile();
+        gapi.client.load('plus', 'v1', function () {
+            var request = gapi.client.plus.people.get({
+                'userId': 'me'
+    });
+
+     //Display the user details
+     request.execute(function (resp) {
+         var profileHTML = '<div class="profile"><div class="head">Welcome ' + resp.name.givenName + '! <a href="javascript:void(0);" onclick="signOut();">Sign out</a></div>';
+         profileHTML += '<img src="' + resp.image.url + '"/><div class="proDetails"><p>' + resp.displayName + '</p><p>' + resp.emails[0].value + '</p><p><a href="' + resp.url + '">View Google+ Profile</a></p></div></div>';
+         $('.userContent').html(profileHTML);
+     });
+        });
+    }
+
+    function onFailure(error) {
+        alert(error);
+    }
+    function renderButton() {
+        gapi.signin2.render('gSignIn', {
+            'scope': 'profile email',
+            'longtitle': false,
+            'theme': 'light',
+            'class': 'g-signin2',
+            'onsuccess': onSuccess,
+            'onfailure': onFailure
+        });
+    }
+    function signOut() {
+        var auth2 = gapi.auth2.getAuthInstance();
+        auth2.signOut().then(function () {
+            $('.userContent').html('');
+        });
+    }
+</script>
+
+<!-- script for facebook-->
+<div id="fb-root"></div>
+<script type="text/javascript">
+        window.fbAsyncInit = function () {
+            FB.init({ appId: '1752061708340745', status: true, cookie: true, xfbml: true });
+            /* All the events registered */
+            FB.Event.subscribe('auth.login', function (response) {
+                if (response.status === "connected")
+                    FB.api('me?fields=id,name,email', 'get', function (res) {
+                        var profileHTML = '<div class="profile"><div class="head">Welcome ' + res.name + '!</div>';
+                        profileHTML += '<div class="proDetails"><p>' + res.name + '</p><p>' + res.email + '</div>';
+                        $('.userContent').html('');
+                        $('.userContent').append(profileHTML);
+                    });
+            });
+
+            FB.Event.subscribe('auth.logout', function (response) {
+                window.location.href = "Login";
+            });
+
+        };
+        (function () {
+            var e = document.createElement('script');
+            e.type = 'text/javascript';
+            e.src = document.location.protocol +
+            '//connect.facebook.net/en_US/all.js';
+            e.async = true;
+            document.getElementById('fb-root').appendChild(e);
+        }());
+</script>
+
+
+
+

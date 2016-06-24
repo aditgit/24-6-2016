@@ -1,0 +1,59 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_socialMediaLayout.cshtml";
+}
+<div class="page-head">
+    <!-- BEGIN PAGE TITLE -->
+    <div class="page-title">
+        <h1>Social Media</h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+
+        <div class="portlet light">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa  fa-cogs font-green-sharp"></i>
+                    <span class="caption-subject font-green-sharp bold uppercase">Share</span>
+                    <span class="caption-helper">share through social media....</span>
+                </div>
+            </div>
+            <div class="portlet-body">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+                        @Html.ValidationSummary(true)
+
+                        <div class="form-group">
+                            @Html.Label("Share us on:", new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                <a class="btn btn-facebook" href="https://www.facebook.com/sharer.php?u=http://www.aditmicrosys.com/who-we-are.html" onclick="window.open(this.href, 'mywin','left=50,top=50,width=600,height=350,toolbar=0'); return false;">
+                                    <i class="fa fa-facebook"></i> Facebook
+                                </a>
+
+                                <a class="btn btn-google" data-layout="button_count" href="https://plus.google.com/share?url=[http://www.aditmicrosys.com/who-we-are.html]"
+                                   onclick="window.open(this.href, 'mywin','left=50,top=50,width=600,height=350,toolbar=0'); return false;">
+                                    <i class="fa fa-google-plus"></i> share
+                                </a>
+
+                                <a class="btn btn-linkedin" href="https://www.linkedin.com/cws/share?url=http://www.aditmicrosys.com/who-we-are.html" 
+                                   onclick="window.open(this.href, 'mywin','left=50,top=50,width=600,height=350,toolbar=0'); return false;">
+                                    <i class="fa fa-linkedin"></i> share
+                                </a>
+
+                                <a class="btn btn-twitter" href="https://twitter.com/share?url=[http://www.aditmicrosys.com/who-we-are.html]" 
+                                   onclick="window.open(this.href, 'mywin','left=50,top=50,width=600,height=350,toolbar=0'); return false;">
+                                    <i class="fa fa-twitter"></i> Tweet
+                                </a>
+                            </div>
+                        </div>
+                  </div>                     
+                }
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,54 @@
+﻿@using Microsoft.AspNet.Identity
+@{
+    Layout = "~/Views/Shared/_socialMediaLayout.cshtml";
+}
+
+
+<div class="page-head">
+    <!-- BEGIN PAGE TITLE -->
+    <div class="page-title">
+        <h1>Social Media</h1>
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+
+        <div class="portlet light">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa  fa-cogs font-green-sharp"></i>
+                    <span class="caption-subject font-green-sharp bold uppercase">Welcome user</span>
+                    <span class="caption-helper">social media authentication....</span>
+                </div>
+               
+                <ul class="nav navbar-nav navbar-right">
+
+                    <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+                </ul>
+            </div>
+            <div class="portlet-body">
+                <div class="row">
+                   
+                  
+                    @using (Html.BeginForm("LogOff", "SocialMedia", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-horizontal">
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div style="margin-right:286px">
+                                <h4>Hello <b>@ViewBag.Name</b> Welcome to my social media Demo website</h4>
+                                <h5>Your UserName will be <b>@ViewBag.UserName</b></h5> 
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

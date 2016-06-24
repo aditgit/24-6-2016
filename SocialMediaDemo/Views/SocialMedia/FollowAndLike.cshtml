@@ -1,0 +1,139 @@
+﻿@{
+    Layout = "~/Views/Shared/_socialMediaLayout.cshtml";
+}
+
+<div class="page-head">
+    <!-- BEGIN PAGE TITLE -->
+    <div class="page-title">
+        <h1>Social Media</h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+
+        <div class="portlet light">
+
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa  fa-cogs font-green-sharp"></i>
+                    <span class="caption-subject font-green-sharp bold uppercase">Follow & Like</span>
+                    <span class="caption-helper">follow and like through social media....</span>
+                </div>
+            </div>
+
+            <div class="portlet-body">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+                        @Html.ValidationSummary(true)
+                        
+                        <div class="form-group">
+                            @Html.Label("Follow us on:", new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                <a class="twitter-follow-button" href="https://twitter.com/prabhu_vanniar"  data-show-count="false" 
+                                    data-show-screen-name="false">Follow 
+                                </a>
+
+                                <!--This "111528855441137797219" id vary based on account -->
+                                <a class="g-follow" data-annotation="none" data-height="20" 
+                                   data-href="//plus.google.com/u/0/111528855441137797219" data-rel="author">
+                                </a>
+
+                                <a>
+                                    <script type="IN/FollowCompany" data-id="709988"></script>
+                                </a>
+
+                                <!--To Follow any Facebook account it is compulsory that following account give permission to follow everyone-->
+                                <a class="fb-follow" data-href="https://www.facebook.com/zack" data-layout="button"
+                                   data-show-faces="true">
+                                </a>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.Label("Like this:", new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+
+                                <a class="fb-like" data-href="http://www.aditmicrosys.com/who-we-are.html" 
+                                     data-layout="button_count" data-action="like" data-show-faces="true" data-share="false">
+                                </a>                                
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.Label("Share us on(using JS):", new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                    <!-- Using Js you have default class for social media plugin-->
+                                    
+                                <div class="g-plus" data-action="share" data-annotation="none"
+                                     data-href="http://www.aditmicrosys.com/who-we-are.html">
+                                </div>
+                                
+                                    <a href="http://www.aditmicrosys.com/who-we-are.html" 
+                                       data-counter="false" class="twitter-share-button"
+                                        data-layout="button_count"  data-count="none">Tweet
+                                    </a>
+
+                                    <script type="IN/Share" data-url="http://www.aditmicrosys.com/who-we-are.html"
+                                            data-counter="false">
+                                    </script>
+
+                                    <a href="http://www.aditmicrosys.com/who-we-are.html"
+                                       class="fb-share-button" data-layout="button" data-size="large" data-count="false">
+                                    </a>
+
+                               
+
+                            </div>
+                        </div>                        
+                       
+                    </div>
+
+                }
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<!-- script for twitter -->
+<script src="https://platform.twitter.com/widgets.js"></script>
+<script>
+!function (d, s, id)
+{
+    var js, fjs = d.getElementsByTagName(s)[0],
+        p = /^http:/.test(d.location) ? 'http' : 'https';
+    if (!d.getElementById(id))
+    {
+        js = d.createElement(s); js.id = id;
+        js.src = p + '://platform.twitter.com/widgets.js';
+        fjs.parentNode.insertBefore(js, fjs);
+    }
+}
+(document, 'script', 'twitter-wjs');    
+</script>
+
+<!-- script for facebook-->
+<div id="fb-root"></div>
+<script>
+(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.6&appId=1752061708340745";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+<!-- script for google-->
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+
+
+<!-- script for linkedin-->
+<script src="//platform.linkedin.com/in.js" type="text/javascript"> lang: en_US</script>
+
+
