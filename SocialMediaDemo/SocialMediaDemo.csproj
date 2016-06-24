@@ -430,6 +430,7 @@
     <Content Include="Views\SocialMedia\WelcomeUser.cshtml" />
     <Content Include="Views\SocialMedia\Share.cshtml" />
     <Content Include="Views\SocialMedia\FollowAndLike.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
